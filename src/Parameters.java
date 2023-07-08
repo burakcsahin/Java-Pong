@@ -6,6 +6,8 @@ public class Parameters {
 	public static final double BAR_WIDTH = 20, BAR_HEIGHT = 200, BALL_WIDTH = 20, HZ_PADDING = 60, BAR_SPEED = 620, MAX_ANGLE = 45 ;
 	public static double TOOLBAR_HEIGHT, INSETS_BOTTOM;
 
+	public static final int TEXTPOS_Y = 100;
+	public static final int TEXT_SIZE = 60;
 	
-	
+	public static final int WIN_SCORE = 5;
 }

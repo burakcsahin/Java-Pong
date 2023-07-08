@@ -1,15 +1,18 @@
 public class Ball {
 	public Rectangle rect;
 	public Rectangle leftPad, rightPad;
+	public Texts playerScore, compScore;
 
 	private double veloX = -600.0;
 	private double veloY = 40.0;
 	private double speed = 800.0;
 
-	public Ball(Rectangle rect, Rectangle leftPad, Rectangle rightPad) {
+	public Ball(Rectangle rect, Rectangle leftPad, Rectangle rightPad, Texts playerScore, Texts compScore) {
 		this.rect = rect;
 		this.leftPad = leftPad;
 		this.rightPad = rightPad;
+		this.playerScore = playerScore;
+		this.compScore = compScore;
 	}
 
 	public double newVelocityAngle(Rectangle paddle) {
@@ -63,6 +66,32 @@ public class Ball {
 
 		this.rect.x += veloX * dt;
 		this.rect.y += veloY * dt;
+
+		if(this.rect.x + this.rect.width < leftPad.x) {
+			int compScoreInt = Integer.parseInt(compScore.text);
+			compScoreInt++;
+			compScore.text = "" + compScoreInt;
+			this.rect.x = Parameters.SCREEN_WIDTH / 2.0;
+			this.rect.y = Parameters.SCREEN_HEIGHT/ 2.0;
+			this.veloX = -600;
+			this.veloY = 40;
+			if(compScoreInt >= Parameters.WIN_SCORE) {
+				Main.changeState(0);
+			}
+			
+		}
+		else if(this.rect.x > rightPad.x + rightPad.width) {
+			int playerScoreInt = Integer.parseInt(playerScore.text);
+			playerScoreInt++;
+			playerScore.text = "" + playerScoreInt;
+			this.rect.x = Parameters.SCREEN_WIDTH / 2.0;
+			this.rect.y = Parameters.SCREEN_HEIGHT/ 2.0;
+			this.veloX = 600;
+			this.veloY = 40;
+			if(playerScoreInt >= Parameters.WIN_SCORE) {
+				Main.changeState(0);
+			}
+		}
 	}
 
 	private void normalizeVelocity() {
@@ -120,6 +149,6 @@ public class Ball {
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
-	
-	
+
+
 }
