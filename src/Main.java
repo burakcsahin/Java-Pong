@@ -4,6 +4,7 @@ public class Main {
 	public static Thread mainThread;
 	public static Menu menu;
 	public static PongFrame pongFrame;
+	public static Instructions instructions;
 
 	public static void main(String[] args) {
 		menu = new Menu();
@@ -27,6 +28,20 @@ public class Main {
 			mainThread.start();
 			
 		}
+		
+		else if (newState == 2 && state == 0) {
+            menu.stop();
+            instructions = new Instructions();
+            mainThread = new Thread(instructions);
+            mainThread.start();
+        } 
+		
+		else if (newState == 0 && state == 2) {
+            instructions.stop();
+            menu = new Menu();
+            mainThread = new Thread(menu);
+            mainThread.start();
+        }
 		
 		state = newState;
 	}
